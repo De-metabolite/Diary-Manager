@@ -1,0 +1,1 @@
+﻿Console.WriteLine("MY PERSONAL DIARY MANAGER");

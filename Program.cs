@@ -1,52 +1,100 @@
-﻿using System.Windows.Markup;
+﻿
 
-Console.WriteLine(" WELCOME TO MY PERSONAL DIARY MANAGER");
-int value = 0;
-DisplayMenu(out value);
-while(value == 0)
+using DiaryManager;
+
+List<DiaryEntry> entries = new List<DiaryEntry>();
+int nextId = 1;
+Entry();
+
+void Entry()
 {
-    DisplayMenu(out value);
-}
-
-if(value == 1)
-{
-    Console.WriteLine("Write your Entry");
-    string UserInput = Console.ReadLine();
-    Console.WriteLine("Entry Added Successfully");
-}
-
-        void DisplayMenu(out int value)
-{
-    Console.WriteLine("1. Add a new diary entry");
-    Console.WriteLine("2. View all diary entries");
-    Console.WriteLine("3. Delete an entry");
-    Console.WriteLine("4. Exit the application");
-    Console.Write("Please enter your choice: ");
-    var input = Console.ReadLine();
-
-    var valid = int.TryParse(input, out int choice);
-
-    if (!valid)
+    while (true)
     {
-        Console.WriteLine("Invalid choice. Please enter a number between 1 and 4.");
+        Console.WriteLine("Welcome to My Personal Diary Manager");
+        Console.WriteLine("Press 1, to add a new entry.");
+        Console.WriteLine("Press 2, to view all enties.");
+        Console.WriteLine("Press 3, to delete an entry.");
+        Console.WriteLine("Press 4, to exit the application");
+        Console.WriteLine("Choose your option:");
 
-    }
-    else
-    {
-        if (choice < 1 || choice > 3)
+        string choice = Console.ReadLine();
+        switch (choice)
         {
-            Console.WriteLine("Sorry! This is outside the range of input");
+            case "1":
+                AddEntry();
+                break;
+            case "2":
+                ViewEntry();
+                break;
+            case "3":
+                DeleteEntry();
+                break;
+            case "4":
+                return;
+            default:
+                Console.WriteLine("Invalid Option. Select between 1-4");
+                break;
+
+                void AddEntry()
+                {
+                    DiaryEntry myDairy = new DiaryEntry();
+                    Console.Write("Enter Your Name:");
+                    myDairy.Name = Console.ReadLine();
+                    Console.Write("Enter the description:");
+                    myDairy.Description = Console.ReadLine();
+                    myDairy.Id = nextId++;
+                    myDairy.date = DateTime.Now;
+
+                    entries.Add(myDairy);
+                    Console.WriteLine("Entry Added Successfully");
+                }
+                void ViewEntry()
+                {
+                    if (entries.Count == 0)
+                    {
+
+                        Console.WriteLine("No Entries Found. Write your first entry.");
+                        return;
+                    }
+                    else
+                    {
+                        foreach (var entry in entries)
+                        {
+                            Console.WriteLine($"Id: {entry.Id}");
+                            Console.WriteLine($"DateTime: {entry.date}");
+                            Console.WriteLine($"Desceiption: {entry.Description}");
+
+
+                        }
+                    }
+
+                }
+                void DeleteEntry()
+                {
+                    Console.WriteLine("Enter the ID to delet:");
+                    var input = int.TryParse(Console.ReadLine(), out int nextId);
+                    if (input)
+                    {
+                        var deleteId = entries.FirstOrDefault(x => x.Id == nextId);
+                        if (deleteId != null)
+                        {
+                            entries.Remove(deleteId);
+                            Console.WriteLine("Your entry has been deleted successfully");
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Entry not found");
+                        }
+                    }
+
+                }
+
         }
-
-
     }
-    
 
-    value = choice;
-    
+
 }
-    
-    
 
 
 

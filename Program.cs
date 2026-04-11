@@ -8,13 +8,13 @@ Entry();
 
 void Entry()
 {
-    while (true)
-    {
+     while (true)
+     { 
         Console.WriteLine("Welcome to My Personal Diary Manager");
         Console.WriteLine("Press 1, to add a new entry.");
         Console.WriteLine("Press 2, to view all enties.");
         Console.WriteLine("Press 3, to delete an entry.");
-        Console.WriteLine("Press 4, to exit the application");
+        Console.WriteLine("Press 4, to exit the application.");
         Console.WriteLine("Choose your option:");
 
         string choice = Console.ReadLine();
@@ -30,7 +30,8 @@ void Entry()
                 DeleteEntry();
                 break;
             case "4":
-                return;
+                Exit();
+                break;
             default:
                 Console.WriteLine("Invalid Option. Select between 1-4");
                 break;
@@ -38,7 +39,7 @@ void Entry()
                 void AddEntry()
                 {
                     DiaryEntry myDairy = new DiaryEntry();
-                    Console.Write("Enter Your Name:");
+                    Console.Write("Enter the title:");
                     myDairy.Name = Console.ReadLine();
                     Console.Write("Enter the description:");
                     myDairy.Description = Console.ReadLine();
@@ -89,11 +90,13 @@ void Entry()
                     }
 
                 }
-
+                void Exit()
+                {
+                    Console.WriteLine("Thank you for using My Personal Diary Manager. Goodbye!");
+                    return;
+                }
         }
     }
-
-
 }
 
 
